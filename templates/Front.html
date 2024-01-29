@@ -4,11 +4,53 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE-edge">
 		<meta name="viewport" content="width-device-width, initial-scale=1.0">
+		
+		<style>
+			body{
+				background: silver;
+			}
+			
+			h1 {
+				color: black; 
+				position: sticky;
+				margin: 50px;
+				text-align: center;
+				font-size: 300%;
+				border: 2px  black;
+				border-style: none none double;
+				border-width: thick;
+			}
+			h2 {
+				text-align: center;
+			}
+			.LoginForm {
+				text-align: center;
+				position: relative;
+				border: solid;
+				width: relative;
+				height: 150px;
+				margin: 0 auto;
+				padding: 1em;
+				box-sizing: border-box;
+			}
+			
+			button {
+				
+			}
+			.container{
+				text-align: center;
+				transform: translateY(-200%)
+			}
+			
+		</style>
+	
 	</head>
 	
 	
 	<body>
-		<h1> Login below </h1>
+		<h1> Glow's Hub </h1>
+		
+		<h2> Login below </h2>
 			<div id="Login" class="login">
 
 			  <!-- Temp Login Form -->
@@ -29,22 +71,23 @@
 				  
 
 				</form>
+				
+				</a>
 
 			  </div>
 
 			</div>
 			
-		<h2> Options </h2>
-			<a href="NewUser.html">
-				<button style="color: white;">New User</button>
-			</a>
-			
-			<a href="issues.html">
-				<button style="color: white;">Issue form</button>
-			</a>
-			
-			<a href="index.html">
-				<button style="color: white;">Tmp Index</button>
-			</a>
+			<div class="container">
+				<a href="NewUser.html" style="text-decoration : none;">
+					<button>New User</button>
+				</a>
+				<a href="issues.html" style="text-decoration : none;">
+					<button>Issue form</button>
+				</a>
+				<a href="index.html" style="text-decoration : none;">
+					<button>Tmp Index</button>
+			</div>
+
 
 </html>
