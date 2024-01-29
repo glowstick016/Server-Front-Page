@@ -26,7 +26,7 @@ def passCheck(x):
                 for c in specChar:
                     if(let==c):
                         chkS = True
-                        exit
+                        break
         if(chkS==chkN==chkL==True):
             return True
     else:
