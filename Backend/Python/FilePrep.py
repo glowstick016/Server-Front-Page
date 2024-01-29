@@ -41,6 +41,9 @@ def changeName(name):
     elif(name[0] == "8080"):
         tmp = "Radarr"
         ret = True
+    elif(name[0] == "9696"):
+        tmp = "Prowlerr"
+        ret = True
     return ret, tmp
     
 print(changeName("8989/tcp"))
