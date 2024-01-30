@@ -1,3 +1,5 @@
+#NEED TO CONVERT TO PHP FOR EFFICENCY, diff versions for newuser vs login
+
 #Imports 
 import sys 
 
