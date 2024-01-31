@@ -43,6 +43,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //Implement adding to SQL
     
     //Add extra to txt file or smth w/ username
+
+    //Admin vs Regular user
+    $admin = //Get from MySQL;
+    if($admin == 1){
+	$location = /AppsAdmin.php
+    }elseif(admin == 0){
+	$location = /Apps.php
+    }
 }
 ?>
 </body>
