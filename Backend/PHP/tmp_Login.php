@@ -10,8 +10,6 @@
   Name: <input type="text" name="fName">
   Email: <input type="email" name="fEmail">
   Password: <input type="text" name="fPass">
-  Extra Info: <input type="text" name="fExtra">
-  <input type="submit">
 </form>
 
 <?php
