@@ -4,5 +4,5 @@ Run the init.sh script on download to set-up everything
 
 File explination:
 	- Backend: PHP/Python/Bash code
-	- Data: MySQL Database
+	- Data: MySQL Database code
 	- Templates: html & CSS code
