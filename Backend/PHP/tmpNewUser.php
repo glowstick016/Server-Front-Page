@@ -50,6 +50,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //Implement adding to SQL
     
     //Add extra to txt file or smth w/ username
+    $tmpFile = fopen("Issues/../../AboutUser.txt", "a") or die("No file to open");
+    $fileSize = count($tmpFile);
+    fwrite("\n");
+    fwrite($fileSize,")");
+    fwrite($name,$email,$extra);
 }
 ?>
 </body>
