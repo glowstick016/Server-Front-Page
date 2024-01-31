@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fileSize = count($tmpFile);
     fwrite("\n");
     fwrite($fileSize,")");
-    fwrite($name,$issue,spec);
+    fwrite($name,$issue,$spec);
     
 }
 ?>
