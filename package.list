@@ -1,4 +1,4 @@
 git
 python3
 apache2
-mysql
+mysql-server
