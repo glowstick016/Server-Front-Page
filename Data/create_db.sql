@@ -1,4 +1,3 @@
-CREATE DATABASE GlowWeb;
 USE GlowWeb;
 
 CREATE TABLE Users
@@ -9,4 +8,3 @@ CREATE TABLE Users
     Admin            int NOT NULL,
     primary key     (Usr)
 );
-
