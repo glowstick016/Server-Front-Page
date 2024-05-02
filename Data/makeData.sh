@@ -1,10 +1,14 @@
 #!/bin/bash
 source ./funcs.sh
 
+salt=$(openssl rand -base64 16)
+touch pass.txt
+echo $salt >> pass.txt
+
 user=GlowWeb
 mysql -e "CREATE DATABASE ${user} /*\!40100 DEFAULT CHARACTER SET utf8 */;"
 pass="$(openssl rand -base64 12)"
-
+echo $pass >> pass.txt
 
 read -p "Do you want a user account?[y/n] (Defualt is GlowWeb)" yn
 
