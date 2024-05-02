@@ -3,6 +3,10 @@
 require_once 'connect.php';
 require_once 'log.php';
 
+
+//Add error returns
+
+
 function sanitizeUser($usr, $new){
         $tmp = false;
 
@@ -40,9 +44,10 @@ function sanitizeUser($usr, $new){
                         //Checking results
                         if ($res->num_rows > 0) {
                                 $tmp = false;
+                                echo "Bad username";
                                 logs($usr . " tried to make a duplicate account");
                         }
-   
+
                 }
         }
         return $tmp;
@@ -94,17 +99,18 @@ function sanitizePass($pass, $usr){
                 $info3 = htmlspecialchars($pass);
 
                 if( $pass == $info & $pass == $info2 & $pass == $info3){
-                        $specChar = "'/\"<>(){}[]";
-                        // Cant be /\;"'<>
+                        $specChar = "!#$%^&*_+|:,.?";
                         if(preg_match($specChar,$pass)){
-                                $tmp = false;
-                                logs( $usr . ": password didn't pass sanitization");
+                                $tmp = true;
                         }else{
-                                $specChar = "!#$%^&*_+|:,.?]";
-                                if(preg_match($specChar, $pass)){
-                                        $tmp = true;
-                        }else{ echo "Didn't contain a special character";}
+                                echo "Password didn't have a special character";
+                                logs( $usr . ": password didn't pass sanitization");
                         }
                 }
         }else{ echo "Password didn't fit inside the size boundaries";}
+        return $tmp;
 }
+
+
+sanitizeUser("cjkenned",1);
+?>
