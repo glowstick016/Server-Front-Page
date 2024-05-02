@@ -6,5 +6,6 @@ CREATE TABLE Users
     EMAIL            varchar(50) NOT NULL,
     Password         varchar(50) NOT NULL,
     Admin            int NOT NULL,
+    Rights           int NOT NULL,
     primary key     (Usr)
 );
