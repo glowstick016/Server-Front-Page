@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once "connect.php";
         require_once "sanitize.php";
         require_once "log.php";
+        require_once "goat.php";
 
   // collect value of input field
         $name = htmlspecialchars($_POST['fName']);
@@ -35,7 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $emailCheck = sanitizeEmail($email);
         $passCheck = sanitizePass($pass, $name);
         if($usrCheck & $emailCheck & $passCheck){
+
                 // Add Salting for password
+                $pass = salty($pass);
 
                 $filePath = "../../Issues/AboutUser.txt";
                 if (file_exists($filePath) && is_readable($filePath)) {
