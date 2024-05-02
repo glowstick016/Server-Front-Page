@@ -7,5 +7,6 @@ CREATE TABLE Users
     Password         varchar(50) NOT NULL,
     Admin            int NOT NULL,
     Rights           int NOT NULL,
+    salt             VARBINARY(16),
     primary key     (Usr)
 );
