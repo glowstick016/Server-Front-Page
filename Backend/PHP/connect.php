@@ -1,73 +1,56 @@
-<!DOCTYPE html>
-<html>
-        <head>
-        </head>
-
-<body>
-        <h1> Application Form</h1>
-                <h2> Requirements </h2>
-                        <p>Please include name to make it easier to add (Not saved once admitted)</p>
-                        <p>Password needs the following: 10+ Char, 1 Special Char (Include one of the following !#$%^&*_+|:,.?")</p>
-
-<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
-  Username: <input type="text" name="fName" title="Enter your desired username (No special Chars">
-  Email: <input type="email" name="fEmail" title="Enter desired Email">
-  Password: <input type="password" name="fPass" title="Enter desired password">
-  Extra Info: <input type="text" name="fExtra">
-  <input type="submit">
-</form>
-
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // Configure file for MySQL change to call a function
-        require_once "connect.php";
-        require_once "sanitize.php";
-        require_once "log.php";
-        require_once "goat.php";
+//Include Statements
+require_once "log.php";
 
-  // collect value of input field
-        $name = htmlspecialchars($_POST['fName']);
-        $email = htmlspecialchars($_POST['fEmail']);
-        $pass = htmlspecialchars($_POST['fPass']);
-        $extra = htmlspecialchars($_POST['fExtra']);
 
-        // Implement checks from sanitatize.php here
-        $usrCheck = sanitizeUser($name);
-        $emailCheck = sanitizeEmail($email);
-        $passCheck = sanitizePass($pass, $name);
-        if($usrCheck & $emailCheck & $passCheck){
+function addInfo($username, $email, $pass, $admin, $rights){
+/* Database credentials. Assuming you are running MySQL
+server with default setting (user 'root' with no password) */
+        $DB_SERVER = 'localhost:3306';
+        $DB_USERNAME = 'GlowWeb';
+        $DB_PASSWORD = 'JbLr+KSswbEpo1FF';
+        $DB_NAME = 'GlowWeb';
 
-                // Add Salting for password
-                $pass = salty($pass);
+        /* Attempt to connect to MySQL database */
+        $link = new mysqli($DB_SERVER, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
 
-                $filePath = "../../Issues/AboutUser.txt";
-                if (file_exists($filePath) && is_readable($filePath)) {
-
-                        $tmpFile = fopen($filePath, "a");
-
-                        if ($tmpFile){
-                                $fileSize = count(file($filePath));
-                                $text = $fileSize+1 . ")" .$name . " " . $email . " " . " " $extra . "\n";
-                                fwrite($tmpFile, $text);
-                                fclose($tmpFile);
-
-                                logs("Successfully added" . $name . "to the list. Waiting to be added");
-
-                                echo "Successfuly added.You will be reached out to when added or message Cam for assistance" . "\n";
-
-                                //Add them to the database
-                                addInfo($name,$email,$pass,0,0);
-
-                        }else{echo "Failed to add reach out to Cam";}
-                }else{echo "Failed to read file reach out to Cam";}
-        }
-        else{
-                if(!$usrCheck){ echo "Failed Username check, try again";}
-                if(!$emailCheck){ echo "Failed Email check, try again";}
-                if(!$passCheck){ echo "Failed Password check, try again";}
+        // Check connection
+        if($link ->connect_error){
+                die("ERROR: Could not connect. " . mysqli_connect_error());
+                logs("ERROR: Could not connect" . mysqli_connect_error());
         }
 
+        //User Info
+
+        $sql = "INSERT INTO Users (Usr, EMAIL, Password, Admin, Rights) VALUES ('$username', '$email', '$pass', '$admin', $rights)";
+
+        //Checking if it worked
+        if ($link->query($sql) === TRUE) {
+                echo "New user added successfully";
+        } else {
+                echo "Error: " . $sql . "<br>" . $link->error;
+                logs("Error: " . $sql . "<br>" . $link->error);
+        }
+
+        $link->close();
 }
+
+function connect(){
+                $DB_SERVER = 'localhost:3306';
+                $DB_USERNAME = 'GlowWeb';
+                $DB_PASSWORD = 'JbLr+KSswbEpo1FF';
+                $DB_NAME = 'GlowWeb';
+
+                /* Attempt to connect to MySQL database */
+                $link = new mysqli($DB_SERVER, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
+
+                // Check connection
+                if($link ->connect_error){
+                        die("ERROR: Could not connect. " . mysqli_connect_error());
+                        logs("ERROR: Could not connect" . mysqli_connect_error());
+
+                }
+                return $link;
+}
+
 ?>
-</body>
-</html>
