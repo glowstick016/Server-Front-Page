@@ -1,0 +1,14 @@
+.apps-grid {
+	display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px;
+	justify-content: center;
+}
+.app-button {
+        text-align: center;
+	padding: 10px;
+}
+.app-button img::after {
+	text-decoration: none;
+	display: none;
+}

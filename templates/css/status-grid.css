@@ -1,0 +1,29 @@
+.status-grid {
+	display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between; /* Distribute items evenly */
+	grid-template-columns: repeat(3, 1fr);
+}
+.status-grid p {
+	width: 48%;
+	margin-bottom: 10px;
+}
+
+.status-item {
+	width: 48%;
+	margin-bottom: 10px;
+	display: inline-block;
+}
+.status-item p {
+	display: inline-block;
+}
+.checkmark {
+	width:20px;
+	opacity: 0.75;
+	display: inline-block;
+}
+.x {
+	width: 20px;
+	opacity: 0.75;
+	display: inline-block;
+}

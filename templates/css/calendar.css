@@ -1,0 +1,15 @@
+.calendar {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.calendar-day {
+    border: 1px solid #ccc;
+    margin: 5px;
+    padding: 10px;
+    width: calc(25% - 10px);
+}
+
+.calendar-day h3 {
+    margin-top: 0;
+}
