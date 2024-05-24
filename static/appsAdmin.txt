@@ -1,0 +1,7 @@
+Unraid~"https://google.com"~"_blank"~"../../Pictures/unraid.png"~"Button Description"
+Sonarr~"https://google.com"~"_blank"~"../../Pictures/sonarr.png"~"Button Description"
+Radarr~"https://google.com"~"_blank"~"../../Pictures/radarr.png"~"Button Description"
+Tautulli~"https://google.com"~"_blank"~"../../Pictures/tautulli.png"~"Button Description"
+Plex~"https://www.plex.tv/"~"_blank"~"../../Pictures/plex.png"~"Button Description"
+Oversear~"https://google.com/"~"_blank"~"../Pictures/overseerr.png"~"Button Description"
+Prowlarr~"https://google.com"~"_blank"~"../../Pictures/prowlarr.png"~"Button Description"
