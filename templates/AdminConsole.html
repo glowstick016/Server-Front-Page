@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang = "en">
+        <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="css/main.css">
+                <title> Admin Console </title>
+				
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script>
+        	$(document).ready(function(){
+                	$.ajax({
+                        	url: '../Backend/PHP/getSes.php',
+	                        type: 'GET',
+        	                success: function(resp){
+                	            if(resp.admin === 0){
+                        	                window.location.href = "Login.html";
+                                	}
+	                        }
+        	        });
+        	});
+        </script>
+
+	<script>
+		$(document).ready(function(){
+			$.ajax({
+				url: '../Backend/PHP/adminConsole.php',
+				type: 'GET',
+				data: {action: 'getAllUsers'},
+				success: function(data){
+					$('#usrTable').append(data);
+				}
+			});
+
+
+
+
+		});
+
+		//Admin Button 
+		$(document).on('click', '.addAdminBtn',function(){
+			var user = $(this).data('usr');
+
+			$.ajax({
+				url: '../Backend/PHP/adminConsole.php',
+				type: 'POST',
+				data: {action: 'addAdmin', user: user },
+				success: function(){
+					alert("Successfully added adming rights");
+				}
+			});
+		});
+
+		//Add Web Rights
+                $(document).on('click', '.addWebRightsBtn',function(){
+                        var user = $(this).data('usr');
+
+                        $.ajax({
+                                url: '../Backend/PHP/adminConsole.php',
+                                type: 'POST',
+                                data: {action: 'addWebRights', user: user },
+                                success: function(){
+                                        alert("Successfully added Web rights");
+                                }
+                        });
+                });
+
+		//Remove Rights  Button
+                $(document).on('click', '.removeWebRightsBtn',function(){
+                        var user = $(this).data('usr');
+
+                        $.ajax({
+                                url: '../Backend/PHP/adminConsole.php',
+                                type: 'POST',
+                                data: {action: 'removeWebRights', user: user },
+                                success: function(){
+                                        alert("Successfully removed rights");
+                                }
+                        });
+                });
+
+
+		//Remove User
+		$(document).on('click', '.removeUserBtn',function(){
+			var user = $(this).data('usr');
+
+			$.ajax({
+				url: '../Backend/PHP/adminConsole.php',
+				type: 'POST',
+				data: {action: 'removeUser', user:user },
+				success: function(){
+					alert("Successfully removed User");
+				}
+			});
+		});
+	</script>
+
+	</head>
+	<body>
+	<h1> Users </h1>
+		<table id="usrTable">
+			<tr>
+				<th> User </th>
+				<th> Email </th>
+				<th> Rights </th>
+				<th> Admin </th>
+				<th> Actions </th>
+			</tr>
+		</table>
+
+	<button onclick="adminPage()">Apps Admin</button>
+        <script>
+        	function adminPage() {
+                	window.location.href = "AppsAdmin.html";
+                }
+        </script>
+	
+	</body>
+</html>

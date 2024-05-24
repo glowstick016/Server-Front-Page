@@ -1,46 +1,81 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
-		<title> New User Sign up </title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title> New User </title>
+		<link rel="stylesheet" href="css/main.css">
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	</head>
-	
-	
 	<body>
-		<h1> Enter credentials below </h1>
+
+	        <h1> Application Form</h1>
+		                <h2> Requirements </h2>
+				        <p>Please include name to make it easier to add (Not saved once admitted)</p>
+					<p>Password needs the following: 10+ Char, 1 Special Char (Include one of the following !#$%^&*_+|:,.?")</p>
+
+		<form id= "NewUser">
+			Username: <input type="text" name="fName" title="Enter your desired username (No special Chars)"><br>
+			Email: <input type="email" name="fEmail" title="Enter desired Email"><br>
+			Password: <input type="password" name="fPass" id = "pass" title="Enter desired password"><br>
+			Confirm Password: <input type="password" name="fConPass" id = "ConPass" title="Confirm Password"><br>
+			<span id="passwordMismatch" style="color: red; display: none;">Passwords do not match</span><br>
+			Extra Info: <input type="text" name="fExtra"><br>	  
+			<input type="submit" value="AddUser"><br>
+		</form>
+
+		<script>
 		
-			<p> Need to change to PHP </p>
-		<div id="NewUser" class="login">
+			$(document).ready(function() {
+				
 
-			  <!-- Temp Login Form -->
+				$('#NewUser').submit(function(event){
+					event.preventDefault();
 
-			  <div class="LoginForm">
+					$.ajax({
+						url: '../Backend/PHP/NewUser.php',
+						type: 'POST',
+						data: { action: 'newUser',
+							fName: $('[name="fName"]').val(),
+							fEmail: $('[name="fEmail"]').val(),
+							fPass: $('[name="fPass"]').val(),
+							fConPass: $('[name="fConPass"]').val(),
+							fExtra: $('[name="fExtra"]').val()
+						},
+						success: function(resp){
+								if(resp.CheckUsr){
+                                                                	if(resp.CheckEmail){
+                                                                                if(resp.CheckPass){
+                                                                                        alert("Added a user. Wait to be contacted when approved");
+                                                                                        window.location.href = "Login.html";
+                                                                                }else{alert("Bad Password. Please try again");}
+                                                                }else{alert("Bad Email. Please try again");}
+                                                        }else{alert("Bad Username. Please try again.");}	
 
-				<form>
+						},
+					});
+				});
 
-				  <label for="email">Email</label>
 
-				  <input type="email" id="email" name="email" required>
-				  
-				  <label for="user">Username</label>
-				  
-				  <input type="user" id="user" name="user" required>
+			$('#ConPass').keyup(function() {
+				var password = $('#pass').val();
+				var confirmedPass = $(this).val();
+				if (password != confirmedPass){
+					$('#passwordMismatch').show();
+				} else {
+					$('#passwordMismatch').hide();;
+				}
+			});
 
-				  <label for="password">Password</label>
 
-				  <input type="password" id="password" name="password" required>
-				  
-				  <label for="connection">How I know you (Not saved)</label>
-				  
-				  <input for="connection" id="whoBe" name="connection">
-				  
-				  
-				  <input type="submit" value="Login">
-				  
-
-				</form>
-
-			  </div>
-
-			</div>
+			});
+		</script>
+		<h2> Login Page below </h2>
+		<button onclick="newUser()">Back to Homepage</button>
+                <script>
+                        function newUser() {
+                                window.location.href = "Login.html";
+                                }
+                </script>
 	</body>
-
 </html>

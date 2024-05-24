@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title> Login Page </title>
+		<link rel="stylesheet" href="css/main.css">
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	</head>
+	<body>
+
+		<h1> Glow Hub </h1>
+			<p> Please login below to access </p>
+		<form id= "loginForm">
+			Username/Email: <input type="text" name="fName" title="Enter username"><br>
+			Password: <input type="password" name="fPass" title="Enter Password"><br>
+			  <input type="submit" value="Login">
+		</form>
+
+		<script>
+
+			$(document).ready(function() {
+
+				$('#loginForm').submit(function(event) {
+					event.preventDefault();
+					$.ajax({
+						url: '../Backend/PHP/Login.php',
+						type: 'POST',
+						data: { action: 'login', 
+							fName: $('[name="fName"]').val(),
+							fPass: $('[name="fPass"]').val()
+						},
+						success: function(resp){
+							if(resp.auth){
+                                                                if(resp.admin){
+                                                                        window.location.href = "AppsAdmin.html";
+                                                                }else{
+                                                                        window.location.href = "Apps.html";
+                                                                }
+                                                        } else {
+                                                                alert("Authentication failed. Please try again.");
+							}	
+						},
+					});
+				});
+			});
+
+		</script>
+
+		<button onclick="newUser()">New User</button>
+		<script>
+			function newUser() {
+				window.location.href = "NewUser.html";
+				}
+		</script>
+	</body>
+</html>

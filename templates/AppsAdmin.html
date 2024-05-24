@@ -1,23 +1,145 @@
+<!DOCTYPE html>
 <html>
 <head>
-	<title> AppsAdmin </title>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title> GlowWeb </title>
+                <link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/calendar.css">
+        	<link rel="stylesheet" href="css/status-grid.css">
+		<link rel="stylesheet" href="css/userButton.css">
+		<link rel="stylesheet" href="css/appGrid.css">
+
+	<title> Apps </title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+	<script src="js/checkSes.js"></script>
+
+	<script>
+	$(document).ready(function(){
+    		$.ajax({
+        		url: '../Backend/PHP/getSes.php',
+		        type: 'GET',
+        		success: function(resp){
+	        	    if(resp.admin === 0){
+        	        		window.location.href = "Apps.html";
+	            		}
+        		}
+    		});
+	});
+	</script>
 
 </head>
 
-<body>
-	<h1> Info </h1>
-	<p> Place for Admin apps </p>
-		<! Include: Plex, Oversear, Sonarr, Radarr, and other apps used>
-	<h1> Info </h1>
-	<p> Place to put checks for admin usage </p>
-		<! Include: Checks on all used containers, servers, nzbs, torrents, movies/tvs>
-	
-	<h2> Buttons </h2>
-		<p> This is here for testing </p>
-		<a href="index.html">
-			<button style="background-color: blue; color: white;">index</button>
-		</a>
-	
+<body>	
+	<h1> Admin Access </h1>
+	<button onclick="adminCons()">Admin Console</button>
+                <script>
+                        function adminCons() {
+                                window.location.href = "AdminConsole.html";
+                                }
+                </script>	
+
+	<button onclick="apps()">Normal View</button>
+                <script>
+                        function apps() {
+                                window.location.href = "Apps.html";
+                                }
+                </script>
+		<h2> Session Details</h2>
+        	<div id="sessionDetails"></div>
+	        <script>
+        	        $(document).ready(function(){
+                	        $.ajax({
+                        	        url: '../Backend/PHP/testSes.php',
+                                	type: 'GET',
+	                                success: function(resp){
+        	                                $('#sessionDetails').html(resp);
+                	                },
+                        	        error: function(xhr, status, error){
+                                	        $('#sessionDetails').html("Error getting session details");
+
+	                                }
+        	                });
+                	});
+        	</script>	
+
+	<h1> What would you like to see?</h1>
+	<div id="apps"></div>
+                <script>
+                        $(document).ready(function(){
+                                $.ajax({
+                                        url: '../Backend/PHP/AppsAdmin.php',
+                                        type: 'GET',
+                                        data: {action: 'dispApps'},
+                                        success: function(resp){
+                                                $("#apps").append(resp);
+                                        }
+                                });
+                        });
+                </script>	
+
+
+	<h1> What's my status?</h1>
+	<div id="status"></div>
+		<script>
+			$(document).ready(function(){
+				$.ajax({
+					url: '../Backend/PHP/AppsAdmin.php',
+					type: 'GET',
+					data: {action: 'dispChecks'},
+					success: function(resp){
+						$("#status").append(resp);
+					}
+				});
+			});
+		</script>
+
+
+	<h1> What Show's are coming out?</h1>
+	<div id="calendar"></div>
+		<script>
+                	$(document).ready(function(){
+                        	$.ajax({
+                                	url: '../Backend/PHP/calendar.php',
+                                	type: 'GET',
+	                                data: {action: 'dispCalShows'},
+        	                        success: function(resp){
+                	                        $("#calendar").append(resp);
+                        	        }
+                        	});
+                	});
+        	</script>	
+
+	</div>
+
+	<div class="userButtons">
+                <button class="logoutBtn" >Logout </button>
+
+                <script>
+                        $('.logoutBtn').on('click',function(){
+                                var user = $(this).data('usr');
+
+                                $.ajax({
+                                        url: '../Backend/PHP/logout.php',
+                                        type: 'POST',
+                                        data: {action: 'logout'},
+                                        success: function(){
+                                                window.location.href = "Login.html";
+                                        }
+                                });
+                        });
+                </script>
+                <button class='settings'>Settings </button>
+
+                <script>
+                        $('.settings').on('click',function(){
+                                window.location.href = "userProfile.html";
+                        });
+                </script>
+
+        </div>	
+
 </body>
 
 
