@@ -2,3 +2,5 @@ git
 python3
 apache2
 mysql-server
+php
+php-mysql
