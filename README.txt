@@ -6,3 +6,4 @@ File explination:
 	- Backend: PHP/Python/Bash code
 	- Data: MySQL Database code
 	- Templates: html & CSS code
+	- Modules: Future code that is added
