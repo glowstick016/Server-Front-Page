@@ -4,3 +4,4 @@ apache2
 mysql-server
 php
 php-mysql
+sendmail
