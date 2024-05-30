@@ -16,6 +16,8 @@ error_reporting(E_ALL);
 
 
 if (isset($_GET['action']) && $_GET['action'] == 'dispCalShows'){
+	//Goal: Display a calendar for the user 
+	
 	$url = "https://calendar.google.com/calendar/ical/cjkenned%40udel.edu/private-6b134e998de980279bb0b2a7334c5697/basic.ics";
 
 	$calData = file_get_contents($url);
