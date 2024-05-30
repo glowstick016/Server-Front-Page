@@ -24,7 +24,10 @@
 	        	    if(resp.admin === 0){
         	        		window.location.href = "Apps.html";
 	            		}
-        		}
+        		},
+				error: function(xhr, status, error){
+					alert("Error: " + error);
+				}
     		});
 	});
 	</script>
@@ -73,8 +76,11 @@
                                         type: 'GET',
                                         data: {action: 'dispApps'},
                                         success: function(resp){
-                                                $("#apps").append(resp);
-                                        }
+                                            $("#apps").append(resp);
+                                        },
+										error: function(xhr, status, error){
+											alert("Error: " + error);
+										}
                                 });
                         });
                 </script>	
@@ -90,6 +96,9 @@
 					data: {action: 'dispChecks'},
 					success: function(resp){
 						$("#status").append(resp);
+					},
+					error: function(xhr, status, error){
+						alert("Error: " + error);
 					}
 				});
 			});
@@ -106,7 +115,10 @@
 	                                data: {action: 'dispCalShows'},
         	                        success: function(resp){
                 	                        $("#calendar").append(resp);
-                        	        }
+                        	        },
+									error: function(xhr, status, error){
+										alert("Error: " + error);
+									}
                         	});
                 	});
         	</script>	
@@ -126,7 +138,10 @@
                                         data: {action: 'logout'},
                                         success: function(){
                                                 window.location.href = "Login.html";
-                                        }
+                                        },
+										error: function(xhr, status, error){
+											alert("Error: " + error);
+										}
                                 });
                         });
                 </script>
@@ -141,6 +156,5 @@
         </div>	
 
 </body>
-
 
 </html>
