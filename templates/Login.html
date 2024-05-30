@@ -21,9 +21,9 @@
 		<script>
 
 			$(document).ready(function() {
-
 				$('#loginForm').submit(function(event) {
 					event.preventDefault();
+
 					$.ajax({
 						url: '../Backend/PHP/Login.php',
 						type: 'POST',
@@ -33,15 +33,18 @@
 						},
 						success: function(resp){
 							if(resp.auth){
-                                                                if(resp.admin){
-                                                                        window.location.href = "AppsAdmin.html";
-                                                                }else{
-                                                                        window.location.href = "Apps.html";
-                                                                }
-                                                        } else {
-                                                                alert("Authentication failed. Please try again.");
+                                if(resp.admin){
+                                    window.location.href = "AppsAdmin.html";
+                                }else{
+                                    window.location.href = "Apps.html";
+                                }
+                            } else {
+                                alert("Authentication failed. Please try again.");
 							}	
 						},
+						error: function(xhr, status, error){
+							alert("Error: " + error);
+						}
 					});
 				});
 			});
