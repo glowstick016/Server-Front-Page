@@ -6,6 +6,7 @@ require_once 'goat.php';
 
 
 if (isset($_GET['action']) && $_GET['action'] == 'getUser') {
+        //Goal: Build up the userprofile page to display all the buttons and settings 
 
 	//Getting the username
 	session_start();
@@ -41,6 +42,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'getUser') {
 }
 
 if (isset($_POST['action']) && $_POST['action'] == 'changePass'){
+        //Goal: Change the user's password 
+
 	$oldPass = $_POST['oldPass'];
 	$newPass = $_POST['newPass'];
 	$checkPass = $_POST['checkPass'];
@@ -60,6 +63,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'changePass'){
 }
 
 if (isset($_POST['action']) && $_POST['action'] == 'changeEmail'){
+        //Goal: Change the user's email 
+
         $newEmail = $_POST['newEmail'];
 
         session_start();
@@ -76,6 +81,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'changeEmail'){
 
 
 if (isset($_POST['action']) && $_POST['action'] == 'changePhone'){
+        //Goal: Change the user's phone number
+
         $res = sanitizePhone($_POST['newPhone']);
 
         session_start();
