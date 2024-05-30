@@ -1,6 +1,8 @@
 <?php
 
 if (isset($_GET['action']) && $_GET['action'] == 'dispChecks'){
+	//Goal: display all the system checks that are taking place 
+
 	$path = "../../static/ip";
 	$file = fopen($path, 'r');
 	$filesize = count(file($path));
@@ -30,12 +32,13 @@ if (isset($_GET['action']) && $_GET['action'] == 'dispChecks'){
 	}
 	echo '</div>';
 
-
-fclose($file);
+	fclose($file);
 }
 
 
 if (isset($_GET['action']) && $_GET['action'] == 'dispApps'){
+	//Goal: Display all the apps in button format 
+
 	$path = "../../static/Apps.txt";
 	$file = fopen($path, 'r');
 	$filesize = count(file($path));
@@ -59,6 +62,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'dispApps'){
 
 	}
 	echo "</div>";
-fclose($file);
+	fclose($file);
 }
 ?>
