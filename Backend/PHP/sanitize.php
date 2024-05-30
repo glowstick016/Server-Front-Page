@@ -8,6 +8,10 @@ require_once 'log.php';
 
 
 function sanitizeUser($usr, $new){
+	//usr: String - Username being checked
+	//new: int - variable to determine if new or not (0 == new)
+	//Goal: Check if the username passes all the checks
+
 	$tmp = false;
 
 	//Checking base requirements
@@ -18,15 +22,14 @@ function sanitizeUser($usr, $new){
 		
 		//Check for Special chars & other checks
 		if($usr == $info & $usr == $info2 & $usr == $info3){ 
-			//echo "Passed first check \n";
+	
 			$specChar = '/[!@#$%^&*()_+{}[\]\|;:\'\"<>,.?\/]/';
 			if(preg_match($specChar, $usr)){
-				//echo "Passed failed check\n";
 				$tmp = false;
 				logs($usr . " failed the sanitization check");
 			}else{$tmp=true;}
 		}
-	}//else{ echo "Username didn't fit inside the size boundaries";}
+	}
 
 	//Check SQL databse for non duplicate for new user
 	if ($new === 1){
@@ -56,19 +59,27 @@ function sanitizeUser($usr, $new){
 }
 
 function sanitizeEmail($email,$new){
+	//email: String - email to be checked
+	//new: int - variable to determin if the email is new or not (0 == new)
+	//Goal: Find out if the email passes the sanitization checks 
+
 	$tmp = false;
+
+	//Checking size requires for database
 	if(strlen($email) > 0 or strlen($email) <= 255){
 		$info = trim($email);
 		$info2 = stripslashes($email);
 		$info3 = htmlspecialchars($email);
 	
+		//Check for Special chars & other checks
 		if( $email == $info & $email == $info2 & $email == $info3){
 			$specChar = '/[!#$%^&*()_+{}[\]\|;:\'\"<>,?\/]/';
 			if(preg_match($specChar, $email)){
 				$tmp = false;
 				logs($email . " failed the sanitization check");
 			}else{$tmp = true;}
-	}//else{ echo "Email didn't fit inside the size boundaries";}
+		}
+
 	}
 	//Check SQL database for non duplicate for new user
 	if ($new === 1){
@@ -94,20 +105,25 @@ function sanitizeEmail($email,$new){
 }
 
 function sanitizePass($pass, $usr){
+	//pass: String - password to be checked 
+	//Goal: Check the user's password to meet the requirements 
+
 	$tmp = false;
-	if(strlen($pass) >= 10 or strlen($pass) <= 50){
+	//Check length & if it has a special char 
+	if(strlen($pass) >= 10 or strlen($pass) <= 255){
 		$specChar = '#[!$%^&*_+|:,.?]#';
 		if(preg_match($specChar,$pass)){
 			$tmp = true;
 		}else{ 
-			//echo "Password didn't have a special character";
 			logs( $usr . ": password didn't pass sanitization");
 		}
-	}//else{ echo "Password didn't fit inside the size boundaries";}
+	}
 	return $tmp;
 }
 
 function sanitizePhone($phone){
+	//phone: String - phone number to be converted
+	//Goal: converting the phone number into desired format and making sure it's valid 
 	$number = preg_replace('/[^0-9]/', '', $phone);
 	if(strlen($number) === 10){
 		$tmp = array("number" => $number, "valid" => "true");
@@ -117,4 +133,3 @@ function sanitizePhone($phone){
 
 //sanitizeUser("cjkenned",1);
 ?>
-
