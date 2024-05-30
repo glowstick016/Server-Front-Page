@@ -9,6 +9,7 @@ error_reporting(E_ALL);
 session_start();
 
 if (isset($_POST['action']) && $_POST['action'] == 'login'){
+	//Goal is to check the login credentials of the user to log them in 
 
 	require_once "connect.php";
 	require_once "sanitize.php";
@@ -33,16 +34,19 @@ if (isset($_POST['action']) && $_POST['action'] == 'login'){
 
 
 function checkLogin($name,$pass){
+	//name: String - username of the whoever is logging in 
+	//pass: String - password of the user to be checked 
+	//Goal: Check the login and return the status 
+
 	$resp = array("auth" => 0, "admin" => 0);
+	
 	// Implement username checks here
   	$checkUser = sanitizeUser($name,0);
 	$checkEmail = sanitizeEmail($name,0);
 
 	if($checkUser || $checkEmail){
 		//Check all the rights
-		//echo "Verified User passed sanitization\n";
 		$checkPass = CheckSeason($name,$pass);
-		//echo "Password was: $checkPass eheh\n";
 		$rights = getRights($name);
 
 		if($checkPass && $rights != 0){
@@ -55,18 +59,14 @@ function checkLogin($name,$pass){
 			
 		//Error catching 
 		}else if (!$checkPass){
-			//echo "<p> Username/Password was inccorect try again</p>";
 			logs($name . ": Failed login attempt (Bad password)");
 		}else{
-			//echo "<p> You haven't been given the right rights for this </p>";
 			logs($name . ": Tried to access something they didn't have the rights to (Login page)");	
 		}
 
 	}else{ 
-		//echo "<p> Email/Username didn't pass didn't pass the checks</p>";
 		logs($name . ": Failed login attempt (Failed sanitization)");
 	}
 	return $resp;
 }
-//checkLogin("cjkenned","scooby016!!");
 ?>
