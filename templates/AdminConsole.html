@@ -17,7 +17,10 @@
                 	            if(resp.admin === 0){
                         	                window.location.href = "Login.html";
                                 	}
-	                        }
+	                        },
+							error: function(xhr, status, error){
+								alert("Error: " + error);
+							}
         	        });
         	});
         </script>
@@ -30,11 +33,11 @@
 				data: {action: 'getAllUsers'},
 				success: function(data){
 					$('#usrTable').append(data);
+				},
+				error: function(xhr, status, error){
+					alert("Error: " + error);
 				}
 			});
-
-
-
 
 		});
 
@@ -48,6 +51,9 @@
 				data: {action: 'addAdmin', user: user },
 				success: function(){
 					alert("Successfully added adming rights");
+				},
+				error: function(xhr, status, error){
+					alert("Error: " + error);
 				}
 			});
 		});
@@ -62,7 +68,10 @@
                                 data: {action: 'addWebRights', user: user },
                                 success: function(){
                                         alert("Successfully added Web rights");
-                                }
+                                },
+								error: function(xhr, status, error){
+									alert("Error: " + error);
+								}
                         });
                 });
 
@@ -76,10 +85,12 @@
                                 data: {action: 'removeWebRights', user: user },
                                 success: function(){
                                         alert("Successfully removed rights");
-                                }
+                                },
+								error: function(xhr, status, error){
+									alert("Error: " + error);
+								}
                         });
                 });
-
 
 		//Remove User
 		$(document).on('click', '.removeUserBtn',function(){
@@ -91,6 +102,9 @@
 				data: {action: 'removeUser', user:user },
 				success: function(){
 					alert("Successfully removed User");
+				},
+				error: function(xhr, status, error){
+					alert("Error: " + error);
 				}
 			});
 		});
