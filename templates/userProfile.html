@@ -21,180 +21,180 @@
     	}
 	
 	$(document).ready(function(){
-                        $.ajax({
-                                url: '../Backend/PHP/userProfile.php',
-                                type: 'GET',
-                                data: {action: 'getUser'},
-                                success: function(data){
-                                        $('#usrTable').append(data);
+                $.ajax({
+                        url: '../Backend/PHP/userProfile.php',
+                        type: 'GET',
+                        data: {action: 'getUser'},
+                        success: function(data){
+                                $('#usrTable').append(data);
 
-
-					$('#usrTable').on('click','.changePassword', function() {
+				$('#usrTable').on('click','.changePassword', function() {
 						
-						clearForm();			
-						//Creating Password Change Form
-						var form = document.createElement("form");
-                    	        		form.id = "changePassword";
+					clearForm();			
+					//Creating Password Change Form
+					var form = document.createElement("form");
+            	        		form.id = "changePassword";
+		                                
+                                        var oldPass = document.createElement("label");
+        		                oldPass.textContent = "Old Password: ";
+					oldPass.setAttribute("for","oldPass");
 
-		                                var oldPass = document.createElement("label");
-        		                        oldPass.textContent = "Old Password: ";
-						oldPass.setAttribute("for","oldPass");
+                		        var oldPassInput = document.createElement("input");
+					oldPassInput.id = "oldPass";
+					oldPassInput.name = "oldPass";
+                		        oldPassInput.type = "password";
 
-                		                var oldPassInput = document.createElement("input");
-						oldPassInput.id = "oldPass";
-						oldPassInput.name = "oldPass";
-                        		        oldPassInput.type = "password";
+		                        form.appendChild(oldPass);
+                	                form.appendChild(oldPassInput);
+                        		form.appendChild(document.createElement("br"));
 
-		                                form.appendChild(oldPass);
-                		                form.appendChild(oldPassInput);
-                                		form.appendChild(document.createElement("br"));
+		                        var newPass = document.createElement("label");
+                	                newPass.textContent = "New Password: ";
+					newPass.setAttribute("for", "newPass");
 
-		                                var newPass = document.createElement("label");
-                		                newPass.textContent = "New Password: ";
-						newPass.setAttribute("for", "newPass");
+                                	var newPassInput = document.createElement("input");
+		                        newPassInput.type = "password";
+					newPassInput.id = "newPass";
+					newPassInput.name = "newPass";
 
-                                		var newPassInput = document.createElement("input");
-		                                newPassInput.type = "password";
-						newPassInput.id = "newPass";
-						newPassInput.name = "newPass";
+                                        form.appendChild(newPass);
+                                	form.appendChild(newPassInput);
+		                        form.appendChild(document.createElement("br"));
 
-                		                form.appendChild(newPass);
-                                		form.appendChild(newPassInput);
-		                                form.appendChild(document.createElement("br"));
+                		        var checkPass = document.createElement("label");
+                        		checkPass.textContent = "Retype Password: ";
+					checkPass.setAttribute("for","checkPass");
 
-                		                var checkPass = document.createElement("label");
-                                		checkPass.textContent = "Retype Password: ";
-						checkPass.setAttribute("for","checkPass");
+		                        var checkPassInput = document.createElement("input");
+                	                checkPassInput.type = "password";
+					checkPassInput.id = "checkPass";
+					checkPassInput.name = "checkPass";
 
-		                                var checkPassInput = document.createElement("input");
-                		                checkPassInput.type = "password";
-						checkPassInput.id = "checkPass";
-						checkPassInput.name = "checkPass";
-
-                                		form.appendChild(checkPass);
-		                                form.appendChild(checkPassInput);
-                		                form.appendChild(document.createElement("br"));
+                        		form.appendChild(checkPass);
+		                        form.appendChild(checkPassInput);
+                		        form.appendChild(document.createElement("br"));
 						
-						var subButton = document.createElement("button");
-						subButton.type = "submit";
-						subButton.textContent = "Submit";
-						form.appendChild(subButton);
+					var subButton = document.createElement("button");
+					subButton.type = "submit";
+					subButton.textContent = "Submit";
+					form.appendChild(subButton);
 						
-						subButton.addEventListener('click', function() {
-							event.preventDefault();
-							$.ajax({
-								url: '../Backend/PHP/userProfile.php',
-								type: "POST",
-								data: { action: "changePass",
-									oldPass: $('#oldPass').val(),
-									newPass: $('#newPass').val(),
-									checkPass: $('#checkPass').val()
-								},
-								success: function(resp){
-									alert(resp);
-								},
-								error: function(resp){
-									alert("Couldn't change password");
-								}
+					subButton.addEventListener('click', function() {
+						event.preventDefault();
+						$.ajax({
+							url: '../Backend/PHP/userProfile.php',
+							type: "POST",
+							data: { action: "changePass",
+								oldPass: $('#oldPass').val(),
+								newPass: $('#newPass').val(),
+								checkPass: $('#checkPass').val()
+							},
+							success: function(resp){
+								alert(resp);
+							},
+                                                        error: function(xhr, status, error){
+                                                                alert("Error: " + error);
+                                                        }
 							
-							});
 						});
-
-                                		document.getElementById("formContainer").appendChild(form);	
 					});
 
-					//Change Email 		
-					$('#usrTable').on('click', '.changeEmail', function() {
-						clearForm();
-				                var form = document.createElement("form");
-                                                form.id = "changeEmail";
+                                	document.getElementById("formContainer").appendChild(form);	
+				});
 
-                                                var newEmail = document.createElement("label");
-                                                newEmail.textContent = "New Email: ";
-                                                newEmail.setAttribute("for", "newEmail");
+				//Change Email 		
+				$('#usrTable').on('click', '.changeEmail', function() {
+					clearForm();
+				        var form = document.createElement("form");
+                                        form.id = "changeEmail";
 
-                                                var newEmailInput = document.createElement("input");
-                                                newEmailInput.type = "email";
-                                                newEmailInput.id = "newEmail";
-                                                newEmailInput.name = "newEmail";
+                                        var newEmail = document.createElement("label");
+                                        newEmail.textContent = "New Email: ";
+                                        newEmail.setAttribute("for", "newEmail");
 
-                                                form.appendChild(newEmail);
-                                                form.appendChild(newEmailInput);
-                                                form.appendChild(document.createElement("br"));
+                                        var newEmailInput = document.createElement("input");
+                                        newEmailInput.type = "email";
+                                        newEmailInput.id = "newEmail";                                                newEmailInput.name = "newEmail";
 
-                                                var subButton = document.createElement("button");
-                                                subButton.type = "submit";
-                                                subButton.textContent = "Submit";
-                                                form.appendChild(subButton);
+                                        form.appendChild(newEmail);
+                                        form.appendChild(newEmailInput);
+                                        form.appendChild(document.createElement("br"));
 
-                                                subButton.addEventListener('click', function() {
-                                                        event.preventDefault();
-                                                        $.ajax({
-                                                                url: '../Backend/PHP/userProfile.php',
-                                                                type: "POST",
-                                                                data: { action: "changeEmail",
-                                                                        newEmail: $('#newEmail').val()
-                                                                },
-                                                                success: function(resp){
-                                                                        alert(resp);
-                                                                },
-                                                                error: function(resp){
-                                                                        alert(resp);
-                                                                }
+                                        var subButton = document.createElement("button");
+                                        subButton.type = "submit";
+                                        subButton.textContent = "Submit";
+                                        form.appendChild(subButton);
 
-                                                        });
+                                        subButton.addEventListener('click', function() {
+                                                event.preventDefault();
+                                                $.ajax({
+                                                        url: '../Backend/PHP/userProfile.php',
+                                                        type: "POST",
+                                                        data: { action: "changeEmail",
+                                                                newEmail: $('#newEmail').val()
+                                                        },
+                                                        success: function(resp){
+                                                                alert(resp);
+                                                        },
+                                                        error: function(xhr, status, error){
+                                                                alert("Error: " + error);
+                                                        }
                                                 });
-
-                                                document.getElementById("formContainer").appendChild(form);
-					});
-
-					//Change 2FA
-					$('#usrTable').on('click', '.change2FA', function() {
-                                                clearForm();
-                                                var form = document.createElement("form");
-                                                form.id = "changePhone";
-
-                                                var newPhone = document.createElement("label");
-                                                newPhone.textContent = "New Phone Number: ";
-                                                newPhone.setAttribute("for", "newPhone");
-
-                                                var newPhoneInput = document.createElement("input");
-                                                newPhoneInput.type = "text";
-                                                newPhoneInput.id = "newPhone";
-                                                newPhoneInput.name = "newPhone";
-
-                                                form.appendChild(newPhone);
-                                                form.appendChild(newPhoneInput);
-                                                form.appendChild(document.createElement("br"));
-
-                                                var subButton = document.createElement("button");
-                                                subButton.type = "submit";
-                                                subButton.textContent = "Submit";
-                                                form.appendChild(subButton);
-
-                                                subButton.addEventListener('click', function() {
-                                                        event.preventDefault();
-                                                        $.ajax({
-                                                                url: '../Backend/PHP/userProfile.php',
-                                                                type: "POST",
-                                                                data: { action: "changePhone",
-                                                                        newPhone: $('#newPhone').val()
-                                                                },
-                                                                success: function(resp){
-                                                                        alert(resp);
-                                                                },
-                                                                error: function(resp){
-                                                                        alert(resp);
-                                                                }
-
-                                                        });
-                                                });
-
-                                                document.getElementById("formContainer").appendChild(form);
                                         });
-                                } 
-			});
+
+                                        document.getElementById("formContainer").appendChild(form);
+				});
+
+                                //Change 2FA
+                                $('#usrTable').on('click', '.change2FA', function() {
+                                        clearForm();
+                                        var form = document.createElement("form");
+                                        form.id = "changePhone";
+
+                                        var newPhone = document.createElement("label");
+                                        newPhone.textContent = "New Phone Number: ";
+                                        newPhone.setAttribute("for", "newPhone");
+
+                                        var newPhoneInput = document.createElement("input");
+                                        newPhoneInput.type = "text";
+                                        newPhoneInput.id = "newPhone";
+                                        newPhoneInput.name = "newPhone";
+
+                                        form.appendChild(newPhone);
+                                        form.appendChild(newPhoneInput);
+                                        form.appendChild(document.createElement("br"));
+
+                                        var subButton = document.createElement("button");
+                                        subButton.type = "submit";
+                                        subButton.textContent = "Submit";
+                                        form.appendChild(subButton);
+
+                                        subButton.addEventListener('click', function() {
+                                                event.preventDefault();
+                                                $.ajax({
+                                                        url: '../Backend/PHP/userProfile.php',
+                                                        type: "POST",
+                                                        data: { action: "changePhone",
+                                                                newPhone: $('#newPhone').val()
+                                                        },
+                                                        success: function(resp){
+                                                                alert(resp);
+                                                        },
+                                                        error: function(xhr, status, error){
+                                                                alert("Error: " + error);
+                                                        }
+
+                                                });
+                                        });
+
+                                        document.getElementById("formContainer").appendChild(form);
+                                });
+                        },
+                        error: function(xhr, status, error){
+                                alert("Error: " + error);
+                        } 
                 });
+        });
 	</script>
 
 </head>
@@ -218,7 +218,6 @@
         	        }
 	        </script>
 
-
 		<div id="formContainer" class="form-container"></div>
 
 		<script>
@@ -235,7 +234,4 @@
 
         </body>
 
-
-
 </html>
-
