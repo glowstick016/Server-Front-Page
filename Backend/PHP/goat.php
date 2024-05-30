@@ -1,11 +1,13 @@
 <?php
-	//Code to salt and unsalt the passwords
 require_once "connect.php";
 require_once "log.php";
 
 function salty($pass, $usr, $new){
-	//Generates a salt of the new inputs, generates new salt for a new user
-	//
+	//pass: String - Password that is being converted to a hash 
+	//usr: String - User that the password is associated with 
+	//new: int - Dictacts if this is for a new user or an old one (1 == new, 0 == old)
+	//Goal: Generate a salt of the new inputs, generates new salt for a new user
+
 	$filePath = "../../Data/pass.txt";
 	$file = fopen($filePath, "r");
 	$salt = fgets($file);
@@ -16,7 +18,6 @@ function salty($pass, $usr, $new){
 		$pers = shell_exec("../Bash/salt.sh > /dev/null");
 		$hash = crypt($salty, '$2y$10$' . $salt . $pers);
 		return array($hash, $pers);
-	//	addSalt($usr,$pers);
 	}else if ($new === 0){
 		$pers = getSalt($usr);
 		$salty = $salty . $pers;
@@ -27,9 +28,12 @@ function salty($pass, $usr, $new){
 }
 
 function CheckSeason($usr,$pass){
+	//usr: String - Username of the user to be checked
+	//pass: String - password to be checked against database hash 
+
 	//Getting Salt
 	$hash = salty($pass, $usr, 0);
-	//echo "hash was: $hash";
+
 	//Getting user hash
 	$link = connect();
 	$sql = $link->prepare("select Password from Users where Usr = ?");
@@ -50,8 +54,6 @@ function CheckSeason($usr,$pass){
 		return true;
 	}else{
 		logs($usr . ": Failed password");
-		echo "Failed password. Try again\n";
-	//	echo $hash . "\n" . $UsrPass . "\n";
 		return false;
 	}
 }
