@@ -3,6 +3,8 @@
 require_once 'connect.php';
 
 if (isset($_GET['action']) && $_GET['action'] == 'getAllUsers') {
+        //Goal: Display all users in a row allong with buttons for changes 
+
 	$link=connect();
 
         $sql = $link->prepare("select * from Users");
@@ -33,21 +35,29 @@ if (isset($_GET['action']) && $_GET['action'] == 'getAllUsers') {
 }
 
 if (isset($_POST['action']) && $_POST['action'] == 'addAdmin'){
+        //Goal: Give admin rights 
+
 	$Usr = $_POST['user'];
 	giveAdmin($Usr);
 }
 
 if (isset($_POST['action']) && $_POST['action'] == 'addWebRights'){
+        //Goal: Change rights to allow for web access 
+
         $Usr = $_POST['user'];
         changeRights($Usr,1);
 }
 
 if (isset($_POST['action']) && $_POST['action'] == 'removeWebRights'){
+        //Goal: Change rights to remove web access 
+
 	$Usr = $_POST['user'];
 	changeRights($Usr,0);
 }
 
 if (isset($_POST['action']) && $_POST['action'] == 'removeUser'){
+        //Goal: remove a user 
+        
 	$usr = $_POST['user'];
 	removeUser($usr);
 }
