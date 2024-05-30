@@ -1,6 +1,8 @@
 <?php
 
 if (isset($_GET['action']) && $_GET['action'] == 'dispChecks'){
+        //Goal: Display all the system checks for admins 
+
 	$path = "../../static/ipA";
 	$file = fopen($path, 'r');
 	$filesize = count(file($path));
@@ -32,10 +34,12 @@ if (isset($_GET['action']) && $_GET['action'] == 'dispChecks'){
 	echo '</div>';
 
 
-fclose($file);
+        fclose($file);
 }
 
 if (isset($_GET['action']) && $_GET['action'] == 'dispApps'){
+        //Goal: Disaply all the Admin apps 
+
         $path = "../../static/AppsAdmin.txt";
         $file = fopen($path, 'r');
         $filesize = count(file($path));
@@ -59,7 +63,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'dispApps'){
 
         }
         echo "</div>";
-fclose($file);
+        fclose($file);
 }
 
 
