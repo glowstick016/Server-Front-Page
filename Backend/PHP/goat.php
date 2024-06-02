@@ -8,23 +8,26 @@ function salty($pass, $usr, $new){
 	//new: int - Dictacts if this is for a new user or an old one (1 == new, 0 == old)
 	//Goal: Generate a salt of the new inputs, generates new salt for a new user
 
-	$filePath = "../../Data/pass.txt";
+	$filePath = "../Bash/pass.txt";
 	$file = fopen($filePath, "r");
-	$salt = fgets($file);
+	$salt = trim(fgets($file));
 	
 	fclose($file);
-	$salty = $salt . $pass;
+	//$salty = trim($salt . $pass);
 	if( $new === 1){
-		$pers = shell_exec("../Bash/salt.sh > /dev/null");
-		$hash = crypt($salty, '$2y$10$' . $salt . $pers);
+		$pers = trim(shell_exec("../Bash/salt.sh"));
+		$salty = '$6$' . $salt . $pass . $pers;
+		$hash = crypt(trim($pass), $salty);
 		return array($hash, $pers);
 	}else if ($new === 0){
 		$pers = getSalt($usr);
 		$salty = $salty . $pers;
 	}
-	$hash = crypt($salty, '$2y$10$' . $salt . $pers);
+	$salty = '$6$' . $salt . $pass . $pers;
+	$hash = crypt($pass, $salty);
 
 	return $hash;
+
 }
 
 function CheckSeason($usr,$pass){
