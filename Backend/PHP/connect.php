@@ -10,11 +10,11 @@ function connect(){
 	$DB_SERVER = 'localhost:3306';
 	$DB_USERNAME = 'GlowWeb';
 	
-	$filepath = "../../static/pass.txt";
+	$filepath = "../Bash/pass.txt";
 	$file = fopen($filepath, 'r');
-	fget($file);
+	fgets($file);
 
-	$DB_PASSWORD = fget($file);
+	$DB_PASSWORD = fgets($file);
 	fclose($file);
 
 	$DB_NAME = 'GlowWeb';
