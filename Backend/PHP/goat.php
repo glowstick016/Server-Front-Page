@@ -21,7 +21,7 @@ function salty($pass, $usr, $new){
 		return array($hash, $pers);
 	}else if ($new === 0){
 		$pers = getSalt($usr);
-		$salty = $salty . $pers;
+		$salty = '$6$' . $salt . $pass . $pers;
 	}
 	$salty = '$6$' . $salt . $pass . $pers;
 	$hash = crypt($pass, $salty);
