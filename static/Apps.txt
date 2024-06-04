@@ -1,2 +1,2 @@
-Plex~"https://www.plex.tv/"~"_blank"~"../../Pictures/plex.png"~"Button Description"
+Plex~"https://www.plex.tv/"~"_blank"~"../Pictures/plex.png"~"Button Description"
 Oversear~"https://google.com/"~"_blank"~"../Pictures/overseerr.png"~"Button Description"
