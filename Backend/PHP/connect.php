@@ -14,7 +14,7 @@ function connect(){
 	$file = fopen($filepath, 'r');
 	fgets($file);
 
-	$DB_PASSWORD = fgets($file);
+	$DB_PASSWORD = trim(fgets($file));
 	fclose($file);
 
 	$DB_NAME = 'GlowWeb';
